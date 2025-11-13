@@ -1,18 +1,19 @@
 /**
  * PUBLIC_INTERFACE
  * validateWeeklyReport
- * Validates the weekly report form data.
- * - name: required
+ * Validates the weekly report form data for the new schema.
+ * - author_name: required
  * - weekStart, weekEnd: required, weekEnd >= weekStart
- * - accomplishments: required
+ * - progress: required
+ * Other fields optional but trimmed.
  * @param {Object} form
  * @returns {{valid: boolean, errors: Record<string,string>}}
  */
 export function validateWeeklyReport(form) {
   const errors = {};
 
-  if (!form.name || !form.name.trim()) {
-    errors.name = 'Name is required.';
+  if (!form.author_name || !form.author_name.trim()) {
+    errors.author_name = 'Your name is required.';
   }
 
   if (!form.weekStart) {
@@ -39,8 +40,8 @@ export function validateWeeklyReport(form) {
     }
   }
 
-  if (!form.accomplishments || !form.accomplishments.trim()) {
-    errors.accomplishments = 'Accomplishments are required.';
+  if (!form.progress || !form.progress.trim()) {
+    errors.progress = 'Progress is required.';
   }
 
   return {

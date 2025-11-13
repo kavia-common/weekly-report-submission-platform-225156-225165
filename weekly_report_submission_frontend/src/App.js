@@ -17,14 +17,17 @@ import { Toast } from './components/ui/Toast';
 
 // PUBLIC_INTERFACE
 function App() {
+  // Updated form state to match new schema fields
   const [form, setForm] = useState({
-    name: '',
+    author_name: '',
     weekStart: '',
     weekEnd: '',
-    accomplishments: '',
+    progress: '',
     blockers: '',
-    nextWeek: '',
-    notes: ''
+    resolutions: '',
+    help_needed: '',
+    key_learnings: '',
+    next_week_plan: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -53,25 +56,31 @@ function App() {
 
     setSubmitting(true);
     try {
+      // Map to DB fields according to new schema
       await createWeeklyReport({
-        name: form.name.trim(),
+        author_name: form.author_name.trim(),
         week_start: form.weekStart,
         week_end: form.weekEnd,
-        accomplishments: form.accomplishments.trim(),
+        progress: form.progress.trim(),
         blockers: form.blockers.trim(),
-        next_week: form.nextWeek.trim(),
-        notes: form.notes.trim()
+        resolutions: form.resolutions.trim(),
+        help_needed: form.help_needed.trim(),
+        key_learnings: form.key_learnings.trim(),
+        next_week_plan: form.next_week_plan.trim()
+        // created_at is defaulted by DB
       });
       setToast({ type: 'success', message: 'Report submitted successfully.' });
       // Clear form after success
       setForm({
-        name: '',
+        author_name: '',
         weekStart: '',
         weekEnd: '',
-        accomplishments: '',
+        progress: '',
         blockers: '',
-        nextWeek: '',
-        notes: ''
+        resolutions: '',
+        help_needed: '',
+        key_learnings: '',
+        next_week_plan: ''
       });
     } catch (err) {
       // Avoid logging secrets; only log generic error
@@ -95,12 +104,12 @@ function App() {
             <form onSubmit={handleSubmit} noValidate>
               <div className="grid grid-cols-1 gap-5">
                 <TextInput
-                  id="name"
-                  label="Name"
-                  value={form.name}
-                  onChange={onChange('name')}
+                  id="author_name"
+                  label="Your Name"
+                  value={form.author_name}
+                  onChange={onChange('author_name')}
                   required
-                  error={errors.name}
+                  error={errors.author_name}
                 />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -124,12 +133,12 @@ function App() {
                 </div>
 
                 <TextArea
-                  id="accomplishments"
-                  label="Accomplishments"
-                  value={form.accomplishments}
-                  onChange={onChange('accomplishments')}
+                  id="progress"
+                  label="Progress"
+                  value={form.progress}
+                  onChange={onChange('progress')}
                   required
-                  error={errors.accomplishments}
+                  error={errors.progress}
                   rows={5}
                 />
 
@@ -142,19 +151,35 @@ function App() {
                 />
 
                 <TextArea
-                  id="nextWeek"
-                  label="Next Week Plan"
-                  value={form.nextWeek}
-                  onChange={onChange('nextWeek')}
+                  id="resolutions"
+                  label="Resolutions"
+                  value={form.resolutions}
+                  onChange={onChange('resolutions')}
                   rows={4}
                 />
 
                 <TextArea
-                  id="notes"
-                  label="Notes (Optional)"
-                  value={form.notes}
-                  onChange={onChange('notes')}
-                  rows={3}
+                  id="help_needed"
+                  label="Help Needed"
+                  value={form.help_needed}
+                  onChange={onChange('help_needed')}
+                  rows={4}
+                />
+
+                <TextArea
+                  id="key_learnings"
+                  label="Key Learnings"
+                  value={form.key_learnings}
+                  onChange={onChange('key_learnings')}
+                  rows={4}
+                />
+
+                <TextArea
+                  id="next_week_plan"
+                  label="Next Week Plan"
+                  value={form.next_week_plan}
+                  onChange={onChange('next_week_plan')}
+                  rows={4}
                 />
 
                 <div className="flex items-center justify-end pt-2">
