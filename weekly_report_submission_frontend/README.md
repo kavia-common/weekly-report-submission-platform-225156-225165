@@ -1,82 +1,66 @@
-# Lightweight React Template for KAVIA
+# Weekly Report Submission Frontend (React + Tailwind + Supabase)
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+A single-page app to submit weekly reports to a Supabase table, styled with the Champagne theme.
 
 ## Features
 
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+- Tailwind CSS with Champagne theme (primary #D97706, background #FFFBEB)
+- Accessible, elegant single-page form
+- Client-side validation
+- Supabase integration via environment variables
+- Success/error toast feedback
 
-## Getting Started
+## Quick Start
 
-In the project directory, you can run:
+1. Install dependencies:
+   npm install
 
-### `npm start`
+2. Configure environment:
+   - Copy .env.example to .env
+   - Set:
+     REACT_APP_SUPABASE_URL=<your-supabase-url>
+     REACT_APP_SUPABASE_KEY=<your-anon-public-key>
 
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+   Note: Do not commit actual .env values.
 
-### `npm test`
+3. Start the app:
+   npm start
 
-Launches the test runner in interactive watch mode.
+4. Open http://localhost:3000
 
-### `npm run build`
+## Supabase Table
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Create table weekly_reports with columns:
+- id: uuid (default uuid_generate_v4() or Supabase default)
+- name: text
+- week_start: date
+- week_end: date
+- accomplishments: text
+- blockers: text
+- next_week: text
+- notes: text
+- created_at: timestamp with time zone (default now())
 
-## Customization
+## Development Notes
 
-### Colors
+- Tailwind is configured via tailwind.config.js and postcss.config.js
+- Base styles are in src/index.css using Tailwind utilities
+- Supabase client: src/lib/supabaseClient.js
+- Service: src/services/reports.js
+- Validation: src/utils/validation.js
+- UI components under src/components
 
-The main brand colors are defined as CSS variables in `src/App.css`:
+## Security
 
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
-```
+- No secrets are hardcoded.
+- Supabase credentials must be provided via env vars:
+  REACT_APP_SUPABASE_URL, REACT_APP_SUPABASE_KEY
+- Logger avoids logging sensitive info.
 
-### Components
+## Build
 
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
+- Build for production:
+  npm run build
 
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
-
-## Learn More
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Tests (if added):
+  npm test

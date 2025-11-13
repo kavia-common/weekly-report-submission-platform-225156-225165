@@ -1,0 +1,32 @@
+import { getSupabaseClient } from '../lib/supabaseClient';
+
+/**
+ * PUBLIC_INTERFACE
+ * createWeeklyReport
+ * Inserts a weekly report row into the 'weekly_reports' Supabase table.
+ * @param {Object} payload - The report data.
+ * @param {string} payload.name
+ * @param {string} payload.week_start - date (YYYY-MM-DD)
+ * @param {string} payload.week_end - date (YYYY-MM-DD)
+ * @param {string} payload.accomplishments
+ * @param {string} [payload.blockers]
+ * @param {string} [payload.next_week]
+ * @param {string} [payload.notes]
+ * @returns {Promise<Object>} The inserted row object.
+ * @throws {Error} If the insert fails.
+ */
+export async function createWeeklyReport(payload) {
+  const supabase = getSupabaseClient();
+
+  const { data, error } = await supabase
+    .from('weekly_reports')
+    .insert([payload])
+    .select('*')
+    .single();
+
+  if (error) {
+    // Do not include secrets or detailed payload in error
+    throw new Error(error.message || 'Failed to create weekly report');
+  }
+  return data;
+}
