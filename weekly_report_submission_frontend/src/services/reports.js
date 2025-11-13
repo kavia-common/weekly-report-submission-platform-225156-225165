@@ -1,4 +1,4 @@
-import { getSupabaseClient } from '../lib/supabaseClient';
+import { getSupabaseClient } from '../utils/supabaseClient';
 
 /**
  * PUBLIC_INTERFACE
