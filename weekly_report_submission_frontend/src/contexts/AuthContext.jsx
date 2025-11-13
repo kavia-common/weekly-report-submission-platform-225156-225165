@@ -31,6 +31,7 @@ export function AuthProvider({ children }) {
   const signInWithGoogle = useCallback(async () => {
     // emailRedirectTo should point back to this app's URL
     const siteUrl = process.env.REACT_APP_FRONTEND_URL || window.location.origin;
+    console.log("DADU: siteUrl", siteUrl)
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
