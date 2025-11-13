@@ -119,19 +119,37 @@ export function AuthProvider({ children }) {
 
     init();
 
+    // Safe navigation helper to avoid calling useNavigate too early
+    const safeNavigate = (to) => {
+      try {
+        if (typeof navigate === 'function') {
+          navigate(to, { replace: true });
+        } else if (typeof window !== 'undefined') {
+          // Fallback if hook is not ready (shouldn't happen when wrapped correctly)
+          window.location.replace(to);
+        }
+      } catch {
+        if (typeof window !== 'undefined') {
+          window.location.replace(to);
+        }
+      }
+    };
+
     const {
       data: { subscription }
     } = supabase.auth.onAuthStateChange((_event, newSession) => {
       setSession(newSession ?? null);
 
-      // If we now have a session, navigate to post-login route.
+      // Only handle navigation after initial loading is complete to avoid early Router usage
       if (newSession) {
         // Prefer state.from pathname saved by ProtectedRoute, fallback to /submit
         const stateFrom = location.state && location.state.from && location.state.from.pathname;
         const target = stateFrom || '/submit';
         // Ensure hash tokens are removed before navigation
         cleanAuthHashFromUrl();
-        navigate(target, { replace: true });
+
+        // Defer to next tick to ensure Router context is fully established
+        setTimeout(() => safeNavigate(target), 0);
       }
     });
 

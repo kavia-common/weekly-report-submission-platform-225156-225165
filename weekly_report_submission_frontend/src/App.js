@@ -18,9 +18,10 @@ import { ProtectedRoute } from './routes/ProtectedRoute';
  * - /: redirects to /submit (protected)
  */
 function App() {
+  // Router MUST be above AuthProvider to ensure useNavigate/useLocation inside provider have context
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
         <Header />
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -35,8 +36,8 @@ function App() {
           <Route path="/" element={<Navigate to="/submit" replace />} />
           <Route path="*" element={<Navigate to="/submit" replace />} />
         </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
