@@ -51,6 +51,8 @@ function RequireAuth({ children }) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { session, loading } = require('./contexts/AuthContext').useAuth();
 
+  console.log("DADU: session", session)
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
