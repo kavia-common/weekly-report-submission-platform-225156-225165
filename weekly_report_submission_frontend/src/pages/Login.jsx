@@ -1,25 +1,23 @@
 import React, { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { supabase } from '../utils/supabaseClient';
 import { Toast } from '../components/ui/Toast';
 import { Button } from '../components/ui/Button';
 
-/**
- * PUBLIC_INTERFACE
- * Login
- * Presents a Google Sign-In button and handles auth errors gracefully.
- */
 export function Login() {
-  const { signInWithGoogle, loading } = useAuth();
   const [toast, setToast] = useState(null);
 
-  const onLogin = async () => {
-    try {
-      await signInWithGoogle();
-      // Redirect handled by Supabase OAuth redirectTo
-    } catch (err) {
+  const signUp = async () => {
+    const siteUrl = process.env.REACT_APP_FRONTEND_URL || window.location.origin;
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${siteUrl}/submit`,
+      },
+    });
+    if (error) {
       setToast({
         type: 'error',
-        message: err?.message || 'Login failed. Please try again.'
+        message: error.message || 'Login failed. Please try again.'
       });
     }
   };
@@ -32,16 +30,15 @@ export function Login() {
           <p className="text-gray-600 mt-2">Use your Google account to submit your weekly report.</p>
           <div className="mt-6">
             <Button
-              onClick={onLogin}
-              disabled={loading}
+              onClick={signUp}
               className="w-full"
               variant="primary"
             >
-              {loading ? 'Loading...' : 'Continue with Google'}
+              Sign in with Google
             </Button>
           </div>
           <p className="text-xs text-gray-500 mt-4">
-            By continuing, you agree to our acceptable use and privacy guidelines.
+            By continuing, you agree to our acceptable use and privacy guidelines. Be aware of this.
           </p>
         </div>
       </div>

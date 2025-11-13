@@ -1,57 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './index.css';
 import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
+import { supabase } from './utils/supabaseClient';
 import { Header } from './components/Header';
 import { Login } from './pages/Login';
 import { Submit } from './pages/Submit';
 
-/**
- * PUBLIC_INTERFACE
- * App
- * Root application component providing routing and authentication context.
- * Routes:
- * - /login: public login page
- * - /submit: protected weekly report submission page
- * - /: redirects to /submit (protected)
- */
 function App() {
-  return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/submit"
-            element={
-              // Inline protection using ProtectedRoute-like pattern
-              <RequireAuth>
-                <Submit />
-              </RequireAuth>
-            }
-          />
-          <Route path="/" element={<Navigate to="/submit" replace />} />
-          <Route path="*" element={<Navigate to="/submit" replace />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
-  );
-}
+  const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-/**
- * PUBLIC_INTERFACE
- * RequireAuth
- * Small wrapper used locally to protect /submit without separate file import.
- */
-function RequireAuth({ children }) {
-  // Reuse logic but avoid importing another component to keep bundle small
-  // We still use the canonical useAuth hook
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { session, loading } = require('./contexts/AuthContext').useAuth();
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setLoading(false);
+    });
 
-  console.log("DADU: session", session)
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+  };
 
   if (loading) {
     return (
@@ -62,10 +39,21 @@ function RequireAuth({ children }) {
       </div>
     );
   }
-  if (!session) {
-    return <Navigate to="/login" replace />;
-  }
-  return children;
+
+  return (
+    <BrowserRouter>
+      <Header session={session} signOut={signOut} />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/submit"
+          element={session ? <Submit /> : <Navigate to="/login" replace />}
+        />
+        <Route path="/" element={<Navigate to="/submit" replace />} />
+        <Route path="*" element={<Navigate to="/submit" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

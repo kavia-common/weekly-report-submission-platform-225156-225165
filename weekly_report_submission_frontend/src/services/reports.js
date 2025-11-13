@@ -1,4 +1,4 @@
-import { getSupabaseClient } from '../utils/supabaseClient';
+import { supabase } from '../utils/supabaseClient';
 
 /**
  * PUBLIC_INTERFACE
@@ -16,7 +16,6 @@ import { getSupabaseClient } from '../utils/supabaseClient';
  * @throws {Error} If the insert fails.
  */
 export async function createWeeklyReport(payload) {
-  const supabase = getSupabaseClient();
 
   const { data, error } = await supabase
     .from('weekly_reports')
