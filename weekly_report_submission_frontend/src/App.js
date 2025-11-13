@@ -6,7 +6,6 @@ import { AuthProvider } from './contexts/AuthContext';
 import { Header } from './components/Header';
 import { Login } from './pages/Login';
 import { Submit } from './pages/Submit';
-import { ProtectedRoute } from './routes/ProtectedRoute';
 
 /**
  * PUBLIC_INTERFACE
@@ -18,26 +17,26 @@ import { ProtectedRoute } from './routes/ProtectedRoute';
  * - /: redirects to /submit (protected)
  */
 function App() {
-  // Router MUST be above AuthProvider to ensure useNavigate/useLocation inside provider have context
   return (
-    <BrowserRouter>
-      <AuthProvider>
+    <AuthProvider>
+      <BrowserRouter>
         <Header />
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route
             path="/submit"
             element={
-              <ProtectedRoute>
+              // Inline protection using ProtectedRoute-like pattern
+              <RequireAuth>
                 <Submit />
-              </ProtectedRoute>
+              </RequireAuth>
             }
           />
           <Route path="/" element={<Navigate to="/submit" replace />} />
           <Route path="*" element={<Navigate to="/submit" replace />} />
         </Routes>
-      </AuthProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
@@ -51,8 +50,6 @@ function RequireAuth({ children }) {
   // We still use the canonical useAuth hook
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { session, loading } = require('./contexts/AuthContext').useAuth();
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const location = require('react-router-dom').useLocation();
 
   if (loading) {
     return (
@@ -64,7 +61,7 @@ function RequireAuth({ children }) {
     );
   }
   if (!session) {
-    return <Navigate to="/login" replace state={{ from: location }} />;
+    return <Navigate to="/login" replace />;
   }
   return children;
 }
