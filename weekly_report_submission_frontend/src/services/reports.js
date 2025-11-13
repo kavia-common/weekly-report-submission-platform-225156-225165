@@ -6,8 +6,6 @@ import { getSupabaseClient } from '../lib/supabaseClient';
  * Inserts a weekly report row into the 'weekly_reports' Supabase table.
  * @param {Object} payload - The report data.
  * @param {string} payload.author_name
- * @param {string} payload.week_start - date (YYYY-MM-DD)
- * @param {string} payload.week_end - date (YYYY-MM-DD)
  * @param {string} payload.progress
  * @param {string} [payload.blockers]
  * @param {string} [payload.resolutions]

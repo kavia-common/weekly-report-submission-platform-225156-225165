@@ -28,13 +28,11 @@ A single-page app to submit weekly reports to a Supabase table, styled with the 
 
 4. Open http://localhost:3000
 
-## Supabase Table (New Schema)
+## Supabase Table (Schema)
 
 Create table weekly_reports with columns:
 - id: uuid (default uuid_generate_v4() or Supabase default)
 - author_name: text
-- week_start: date
-- week_end: date
 - progress: text
 - blockers: text
 - resolutions: text

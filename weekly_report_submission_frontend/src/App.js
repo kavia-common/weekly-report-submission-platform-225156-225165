@@ -5,7 +5,6 @@ import { createWeeklyReport } from './services/reports';
 import { validateWeeklyReport } from './utils/validation';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { TextInput } from './components/inputs/TextInput';
-import { DateInput } from './components/inputs/DateInput';
 import { TextArea } from './components/inputs/TextArea';
 import { Button } from './components/ui/Button';
 import { Toast } from './components/ui/Toast';
@@ -17,11 +16,9 @@ import { Toast } from './components/ui/Toast';
 
 // PUBLIC_INTERFACE
 function App() {
-  // Updated form state to match new schema fields
+  // Updated form state to remove week/date fields
   const [form, setForm] = useState({
     author_name: '',
-    weekStart: '',
-    weekEnd: '',
     progress: '',
     blockers: '',
     resolutions: '',
@@ -56,11 +53,9 @@ function App() {
 
     setSubmitting(true);
     try {
-      // Map to DB fields according to new schema
+      // Map to DB fields with no week_start/week_end
       await createWeeklyReport({
         author_name: form.author_name.trim(),
-        week_start: form.weekStart,
-        week_end: form.weekEnd,
         progress: form.progress.trim(),
         blockers: form.blockers.trim(),
         resolutions: form.resolutions.trim(),
@@ -73,8 +68,6 @@ function App() {
       // Clear form after success
       setForm({
         author_name: '',
-        weekStart: '',
-        weekEnd: '',
         progress: '',
         blockers: '',
         resolutions: '',
@@ -111,26 +104,6 @@ function App() {
                   required
                   error={errors.author_name}
                 />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <DateInput
-                    id="weekStart"
-                    label="Week Start"
-                    value={form.weekStart}
-                    onChange={onChange('weekStart')}
-                    required
-                    error={errors.weekStart}
-                  />
-                  <DateInput
-                    id="weekEnd"
-                    label="Week End"
-                    value={form.weekEnd}
-                    onChange={onChange('weekEnd')}
-                    required
-                    error={errors.weekEnd}
-                    min={form.weekStart || undefined}
-                  />
-                </div>
 
                 <TextArea
                   id="progress"
