@@ -6,6 +6,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { Header } from './components/Header';
 import { Login } from './pages/Login';
 import { Submit } from './pages/Submit';
+import { ProtectedRoute } from './routes/ProtectedRoute';
 
 /**
  * PUBLIC_INTERFACE
@@ -26,10 +27,9 @@ function App() {
           <Route
             path="/submit"
             element={
-              // Inline protection using ProtectedRoute-like pattern
-              <RequireAuth>
+              <ProtectedRoute>
                 <Submit />
-              </RequireAuth>
+              </ProtectedRoute>
             }
           />
           <Route path="/" element={<Navigate to="/submit" replace />} />
@@ -50,6 +50,8 @@ function RequireAuth({ children }) {
   // We still use the canonical useAuth hook
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const { session, loading } = require('./contexts/AuthContext').useAuth();
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const location = require('react-router-dom').useLocation();
 
   if (loading) {
     return (
@@ -61,7 +63,7 @@ function RequireAuth({ children }) {
     );
   }
   if (!session) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace state={{ from: location }} />;
   }
   return children;
 }

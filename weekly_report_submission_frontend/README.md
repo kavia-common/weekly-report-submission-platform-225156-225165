@@ -57,6 +57,16 @@ Create table weekly_reports with columns:
   REACT_APP_SUPABASE_URL, REACT_APP_SUPABASE_KEY
 - Logger avoids logging sensitive info.
 
+## Supabase OAuth Settings
+
+To ensure smooth OAuth login and redirects:
+- In Supabase Dashboard → Authentication → URL Configuration:
+  - Site URL: set to your deployment origin (e.g., http://localhost:3000 for local dev or your preview/prod URL).
+  - Additional Redirect URLs: include the exact login callback path:
+    - http://localhost:3000/login
+    - https://<your-domain>/login
+- The app requests OAuth with redirectTo set to `${window.location.origin}/login` and then cleans up hash fragments and redirects users to the originally requested route (or /submit by default).
+
 ## Build
 
 - Build for production:
