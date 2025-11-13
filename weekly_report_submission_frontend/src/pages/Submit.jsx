@@ -70,7 +70,13 @@ export function Submit() {
     } catch (err) {
       // eslint-disable-next-line no-console
       console.error('Report submission failed');
-      setToast({ type: 'error', message: err?.message || 'Submission failed. Please try again.' });
+      setToast({
+        type: 'error',
+        message:
+          typeof err?.message === 'string' && err.message.trim()
+            ? err.message
+            : 'Submission failed. Please try again.',
+      });
     } finally {
       setSubmitting(false);
     }
