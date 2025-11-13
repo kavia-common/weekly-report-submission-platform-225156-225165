@@ -45,7 +45,7 @@ Create table weekly_reports with columns:
 
 - Tailwind is configured via tailwind.config.js and postcss.config.js
 - Base styles are in src/index.css using Tailwind utilities
-- Supabase client: src/lib/supabaseClient.js
+- Supabase client: src/utils/supabaseClient.js
 - Service: src/services/reports.js
 - Validation: src/utils/validation.js
 - UI components under src/components
