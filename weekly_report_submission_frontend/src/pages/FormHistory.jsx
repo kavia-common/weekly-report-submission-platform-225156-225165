@@ -10,7 +10,7 @@ import './form-history.css';
 export function FormHistory() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-amber-200">
-      <main className="container mx-auto px-4 py-10">
+      <div className="container mx-auto px-4 py-10">
         <div className="bg-white rounded-xl shadow-soft overflow-hidden">
           <div
             id="screen_1-534"
@@ -122,7 +122,7 @@ export function FormHistory() {
             </section>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
