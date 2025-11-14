@@ -7,6 +7,12 @@ import { Header } from './components/Header';
 import { Login } from './pages/Login';
 import { Submit } from './pages/Submit';
 
+/**
+ * PUBLIC_INTERFACE
+ * App
+ * Root application component handling routing and session state.
+ * Shows /submit when authenticated; otherwise /login.
+ */
 function App() {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
