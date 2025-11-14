@@ -1,0 +1,204 @@
+.form-history-wrapper #screen_1-534 {
+  position: relative;
+  width: 1440px;
+  height: 2115px;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+/* Navigation */
+.form-history-wrapper #nav-1-545 {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 1440px;
+  height: 164px;
+  background-color: #ffffff;
+}
+.form-history-wrapper #nav-title-1-552 {
+  position: absolute;
+  left: 80px;
+  top: 52px;
+  width: 226px;
+  height: 60px;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  color: #000000;
+}
+.form-history-wrapper #nav-items-1-546 {
+  position: absolute;
+  left: 1031px;
+  top: 56px;
+  width: 329px;
+  height: 52px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 48px;
+}
+.form-history-wrapper .nav-item {
+  display: inline-block;
+  height: 30px;
+  text-decoration: none;
+  color: inherit;
+  outline-offset: 2px;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  color: #000000;
+}
+.form-history-wrapper #nav-item-form-1-547,
+.form-history-wrapper #nav-item-history-1-548 {
+  margin-top: 11px;
+}
+.form-history-wrapper #nav-btn-1-550 {
+  width: 114px;
+  height: 52px;
+  position: relative;
+  background-color: #000000;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px #000000;
+}
+.form-history-wrapper #nav-btn-text-1-551 {
+  position: absolute;
+  left: 24px;
+  top: 14px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+/* Title */
+.form-history-wrapper #title-1-535 {
+  position: absolute;
+  left: 80px;
+  top: 164px;
+  width: 625px;
+  height: 48px;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 48px;
+  color: #000000;
+}
+
+/* Grid */
+.form-history-wrapper #card-grid-1-592 {
+  position: absolute;
+  left: 80px;
+  top: 244px;
+  width: 1282px;
+  height: 764px;
+}
+
+/* Cards */
+.form-history-wrapper .card {
+  position: absolute;
+  width: 404px;
+  height: 366px;
+}
+.form-history-wrapper .card .copy {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 404px;
+  height: 240px;
+}
+.form-history-wrapper .card .btn {
+  position: absolute;
+  left: 0;
+  top: 247px;
+  width: 404px;
+  height: 52px;
+  border-radius: 8px;
+  background-color: #000000;
+  box-shadow: 0 1px 2px #000000;
+}
+.form-history-wrapper .card .btn .text {
+  position: absolute;
+  left: 176px;
+  top: 14px;
+  color: #ffffff;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+/* Text stacks inside copy */
+.form-history-wrapper .copy .t-title {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 404px;
+  height: 36px;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 36px;
+  color: #000000;
+}
+.form-history-wrapper .copy .t-section-1,
+.form-history-wrapper .copy .t-section-2,
+.form-history-wrapper .copy .t-section-3 {
+  position: absolute;
+  left: 0;
+  width: 404px;
+  height: 30px;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  color: #828282;
+}
+.form-history-wrapper .copy .t-section-1 { top: 40px; }
+.form-history-wrapper .copy .t-section-2 { top: 108px; }
+.form-history-wrapper .copy .t-section-3 { top: 176px; }
+
+.form-history-wrapper .copy .t-text-1,
+.form-history-wrapper .copy .t-text-2,
+.form-history-wrapper .copy .t-text-3 {
+  position: absolute;
+  left: 0;
+  width: 404px;
+  height: 30px;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  color: #000000;
+}
+.form-history-wrapper .copy .t-text-1 { top: 74px; }
+.form-history-wrapper .copy .t-text-2 { top: 142px; }
+.form-history-wrapper .copy .t-text-3 { top: 210px; }
+
+/* Absolute placement of cards */
+.form-history-wrapper #card-1-593 { left: 0px; top: 0px; }
+.form-history-wrapper #card-2-1055 { left: 439px; top: 0px; }
+.form-history-wrapper #card-2-1067 { left: 878px; top: 0px; }
+.form-history-wrapper #card-2-1079 { left: 0px; top: 398px; }
+.form-history-wrapper #card-2-1091 { left: 439px; top: 398px; }
+.form-history-wrapper #card-2-1103 { left: 878px; top: 398px; }
+
+/* Focus styles */
+.form-history-wrapper #nav-item-form-1-547:focus-visible,
+.form-history-wrapper #nav-item-history-1-548:focus-visible,
+.form-history-wrapper #nav-btn-text-1-551:focus-visible,
+.form-history-wrapper .card .btn .text:focus-visible {
+  outline: 3px solid rgba(0, 0, 0, 0.6);
+  outline-offset: 2px;
+}

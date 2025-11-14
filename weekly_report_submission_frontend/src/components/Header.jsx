@@ -246,9 +246,19 @@ export function Header({ session, signOut }) {
   return (
     <header className="w-full bg-gradient-to-r from-amber-50 to-amber-200 border-b border-amber-100">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <h1 className="text-lg md:text-xl font-bold text-gray-800">
-          Weekly Report Platform
-        </h1>
+        <div className="flex items-center gap-6">
+          <h1 className="text-lg md:text-xl font-bold text-gray-800">
+            Weekly Report Platform
+          </h1>
+          {/* Primary nav */}
+          <nav aria-label="Primary" className="hidden sm:block">
+            <ul className="flex items-center gap-4 text-sm">
+              <li><a href="/" className="text-gray-700 hover:text-amber-800">Home</a></li>
+              <li><a href="/submit" className="text-gray-700 hover:text-amber-800">Submit</a></li>
+              <li><a href="/history" className="text-gray-700 hover:text-amber-800">History</a></li>
+            </ul>
+          </nav>
+        </div>
 
         <div className="flex items-center gap-3">
           {authUser ? (

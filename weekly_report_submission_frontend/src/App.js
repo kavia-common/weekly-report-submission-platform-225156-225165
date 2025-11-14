@@ -6,6 +6,7 @@ import { supabase } from './utils/supabaseClient';
 import { Header } from './components/Header';
 import { Login } from './pages/Login';
 import { Submit } from './pages/Submit';
+import { FormHistory } from './pages/FormHistory';
 
 function App() {
   const [session, setSession] = useState(null);
@@ -48,6 +49,10 @@ function App() {
         <Route
           path="/submit"
           element={session ? <Submit /> : <Navigate to="/login" replace />}
+        />
+        <Route
+          path="/history"
+          element={session ? <FormHistory /> : <Navigate to="/login" replace />}
         />
         <Route path="/" element={<Navigate to="/submit" replace />} />
         <Route path="*" element={<Navigate to="/submit" replace />} />
