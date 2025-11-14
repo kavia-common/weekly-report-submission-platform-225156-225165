@@ -4,34 +4,21 @@ import './form-history.css';
 /**
  * PUBLIC_INTERFACE
  * FormHistory
- * Static Form History screen replicating the provided assets layout.
- * - Uses imported CSS from assets (scoped by wrapper class to avoid conflicts)
- * - Maintains Tailwind backdrop and theme colors around the static content
- * - All measurements preserved per the reference for visual fidelity
+ * Minimal Form History page content.
+ * Renders only a single container with the page title and the card grid, relying on global layout (Header) for nav.
  */
 export function FormHistory() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-amber-200">
       <main className="container mx-auto px-4 py-10">
-        {/* Wrapper that scopes imported CSS to avoid global collisions */}
         <div className="bg-white rounded-xl shadow-soft overflow-hidden">
-          <div id="screen_1-534" className="screen form-history-wrapper" role="document" aria-label="Form history screen" style={{ position: 'relative' }}>
-            {/* Navigation (kept as static per asset) */}
-            <nav id="nav-1-545" aria-label="Primary">
-              <div id="nav-title-1-552" className="typo-5">Weekly Report Platform</div>
-
-              <div id="nav-items-1-546" className="typo-5" role="menubar" aria-label="Main navigation">
-                <a id="nav-item-form-1-547" className="nav-item typo-5" role="menuitem" href="/submit" aria-label="Go to Submit">Form</a>
-                <a id="nav-item-history-1-548" className="nav-item typo-5" role="menuitem" href="/history" aria-current="page" aria-label="View History">History</a>
-
-                <div id="nav-btn-1-550" className="btn-style-4" role="none presentation" aria-hidden="false">
-                  <button id="nav-btn-text-1-551" className="typo-6" type="button" aria-label="Sign Out" onClick={() => { /* integrate auth signOut in header, not here */ }}>
-                    Sign Out
-                  </button>
-                </div>
-              </div>
-            </nav>
-
+          <div
+            id="screen_1-534"
+            className="screen form-history-wrapper"
+            role="document"
+            aria-label="Form history screen"
+            style={{ position: 'relative' }}
+          >
             {/* Page Title */}
             <h1 id="title-1-535" className="typo-4">Form history</h1>
 
