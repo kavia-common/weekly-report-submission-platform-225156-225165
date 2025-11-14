@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from './ui/Button';
 import { supabase } from '../utils/supabaseClient';
+import { Link, useLocation } from 'react-router-dom';
 
 /**
  * PUBLIC_INTERFACE
@@ -26,6 +27,10 @@ export function Header({ session, signOut }) {
   const [open, setOpen] = useState(false);
   const buttonRef = useRef(null);
   const popoverRef = useRef(null);
+
+  // Router location to determine if we are on login route (hide links to avoid flicker)
+  const location = useLocation();
+  const isLoginRoute = location?.pathname === '/login';
 
   // A tiny skeleton width to avoid layout shift where the name/email appears
   const identitySkeleton = useMemo(
@@ -243,6 +248,11 @@ export function Header({ session, signOut }) {
     );
   }, [profile.role]);
 
+  // Determine if nav items should be visible:
+  // - Only show when user is authenticated
+  // - Always hide on the login page to avoid flicker regardless of auth state
+  const showNavLinks = Boolean(authUser) && !isLoginRoute;
+
   return (
     <header className="w-full bg-gradient-to-r from-amber-50 to-amber-200 border-b border-amber-100">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -253,9 +263,20 @@ export function Header({ session, signOut }) {
           {/* Primary nav */}
           <nav aria-label="Primary" className="hidden sm:block">
             <ul className="flex items-center gap-4 text-sm">
-              <li><a href="/" className="text-gray-700 hover:text-amber-800">Home</a></li>
-              <li><a href="/submit" className="text-gray-700 hover:text-amber-800">Submit</a></li>
-              <li><a href="/history" className="text-gray-700 hover:text-amber-800">History</a></li>
+              {showNavLinks && (
+                <>
+                  <li>
+                    <Link to="/submit" className="text-gray-700 hover:text-amber-800">
+                      Form
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/history" className="text-gray-700 hover:text-amber-800">
+                      History
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </nav>
         </div>
