@@ -10,20 +10,27 @@ import './form-history.css';
 export function FormHistory() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-amber-200">
+      {/* Centering wrapper: one top-level container using Tailwind to center content */}
       <div className="container mx-auto px-4 py-10">
-        <div className="bg-white rounded-xl shadow-soft overflow-hidden">
+        <div className="max-w-screen-xl mx-auto">
           <div
             id="screen_1-534"
-            className="screen form-history-wrapper"
+            className="screen form-history-wrapper mx-auto"
             role="document"
             aria-label="Form history screen"
-            style={{ position: 'relative' }}
+            style={{ position: 'relative', maxWidth: 1440 }}
           >
             {/* Page Title */}
-            <h1 id="title-1-535" className="typo-4">Form history</h1>
+            <div className="w-full flex justify-center">
+              <h1 id="title-1-535" className="typo-4 text-center">Form history</h1>
+            </div>
 
             {/* Card Grid */}
-            <section id="card-grid-1-592" aria-label="History cards grid">
+            <section
+              id="card-grid-1-592"
+              aria-label="History cards grid"
+              className="mx-auto"
+            >
               {/* Card 1 */}
               <article id="card-1-593" className="card" aria-labelledby="card-1-title">
                 <div className="copy" role="group" aria-labelledby="card-1-title">
