@@ -9,6 +9,7 @@ A single-page app to submit weekly reports to a Supabase table, styled with the 
 - Client-side validation
 - Supabase integration via environment variables
 - Success/error toast feedback
+- Email/Password authentication (Sign In + Register) and Google sign-in via Supabase Auth
 
 ## Quick Start
 
@@ -20,6 +21,7 @@ A single-page app to submit weekly reports to a Supabase table, styled with the 
    - Set:
      REACT_APP_SUPABASE_URL=<your-supabase-url>
      REACT_APP_SUPABASE_KEY=<your-anon-public-key>
+     REACT_APP_FRONTEND_URL=<http://localhost:3000 or your deployed URL>  # Used for auth redirect
 
    Note: Do not commit actual .env values.
 
@@ -27,6 +29,19 @@ A single-page app to submit weekly reports to a Supabase table, styled with the 
    npm start
 
 4. Open http://localhost:3000
+
+## Authentication
+
+- Navigate to /login to sign in.
+- Options:
+  - Email/Password:
+    - Sign In uses supabase.auth.signInWithPassword({ email, password })
+    - Register uses supabase.auth.signUp({ email, password, options: { emailRedirectTo: `${REACT_APP_FRONTEND_URL}/submit` } })
+      - If your Supabase project requires email confirmation, the app shows a message to check your inbox.
+  - Google:
+    - Uses supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: `${REACT_APP_FRONTEND_URL}/submit` } })
+
+- On success, you are redirected to /submit.
 
 ## Supabase Table (Schema)
 
@@ -46,6 +61,7 @@ Create table weekly_reports with columns:
 - Tailwind is configured via tailwind.config.js and postcss.config.js
 - Base styles are in src/index.css using Tailwind utilities
 - Supabase client: src/utils/supabaseClient.js
+- Auth helpers: src/utils/auth.js
 - Service: src/services/reports.js
 - Validation: src/utils/validation.js
 - UI components under src/components
