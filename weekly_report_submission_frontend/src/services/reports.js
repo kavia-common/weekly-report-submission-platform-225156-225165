@@ -7,7 +7,7 @@ import { supabase } from '../utils/supabaseClient';
  * Automatically includes the authenticated user's id as user_id.
  *
  * @param {Object} payload - The report data.
- * @param {string} payload.author_name
+ * @param {string|null} [payload.author_name] - Optional; will be set to null on create if provided undefined.
  * @param {string} payload.progress
  * @param {string} [payload.blockers]
  * @param {string} [payload.resolutions]
@@ -31,15 +31,14 @@ export async function createWeeklyReport(payload) {
 
   const userId = session?.user?.id || null;
 
-  // Graceful handling when no user is signed in:
-  // If user_id is required by the DB schema, we should stop and inform the caller.
-  // Otherwise, insert will proceed with null which may be rejected by RLS/constraints.
   if (!userId) {
     throw new Error('You must be signed in to submit a report.');
   }
 
+  // Ensure author_name is null and not a required field in insert
   const insertPayload = {
     ...payload,
+    author_name: payload?.author_name ?? null,
     user_id: userId,
   };
 

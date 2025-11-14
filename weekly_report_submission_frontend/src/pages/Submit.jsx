@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { createWeeklyReport } from '../services/reports';
 import { validateWeeklyReport } from '../utils/validation';
-import { TextInput } from '../components/inputs/TextInput';
 import { TextArea } from '../components/inputs/TextArea';
 import { Button } from '../components/ui/Button';
 import { Toast } from '../components/ui/Toast';
@@ -12,8 +11,8 @@ import { Toast } from '../components/ui/Toast';
  * Weekly Report Submission form page (previous App content).
  */
 export function Submit() {
+  // Removed author_name from UI/state entirely per request
   const [form, setForm] = useState({
-    author_name: '',
     progress: '',
     blockers: '',
     resolutions: '',
@@ -40,6 +39,7 @@ export function Submit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
+    // Validation now only requires progress
     const result = validateWeeklyReport(form);
     if (!result.valid) {
       setErrors(result.errors);
@@ -49,17 +49,17 @@ export function Submit() {
     setSubmitting(true);
     try {
       await createWeeklyReport({
-        author_name: form.author_name.trim(),
-        progress: form.progress.trim(),
-        blockers: form.blockers.trim(),
-        resolutions: form.resolutions.trim(),
-        help_needed: form.help_needed.trim(),
-        key_learnings: form.key_learnings.trim(),
-        next_week_plan: form.next_week_plan.trim()
+        // Explicitly set author_name to null to enforce NULL on insert
+        author_name: null,
+        progress: (form.progress || '').trim(),
+        blockers: (form.blockers || '').trim(),
+        resolutions: (form.resolutions || '').trim(),
+        help_needed: (form.help_needed || '').trim(),
+        key_learnings: (form.key_learnings || '').trim(),
+        next_week_plan: (form.next_week_plan || '').trim()
       });
       setToast({ type: 'success', message: 'Report submitted successfully.' });
       setForm({
-        author_name: '',
         progress: '',
         blockers: '',
         resolutions: '',
@@ -93,15 +93,6 @@ export function Submit() {
 
           <form onSubmit={handleSubmit} noValidate>
             <div className="grid grid-cols-1 gap-5">
-              <TextInput
-                id="author_name"
-                label="Your Name"
-                value={form.author_name}
-                onChange={onChange('author_name')}
-                required
-                error={errors.author_name}
-              />
-
               <TextArea
                 id="progress"
                 label="Progress"
